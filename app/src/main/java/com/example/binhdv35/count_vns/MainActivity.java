@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCount;
 
     private String[] myArray = {"aa", "aw", "ee", "oo", "dd", "w", "ow"}; //các kí tự cần đếm
+    private CountVnCharaters countVnCharater = new CountVnCharaters();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,33 +40,10 @@ public class MainActivity extends AppCompatActivity {
         String strInput = edInput.getText().toString().trim();
         if (strInput.isEmpty()){
             Toast.makeText(this, "edit text is empty!", Toast.LENGTH_SHORT).show();
+            tvOutput.setText("edit text is empty!");
         }else {
-            tvOutput.setText(String.valueOf(countVnCharater(strInput)));
+            tvOutput.setText(String.valueOf(countVnCharater.count(strInput,myArray)));
         }
-    }
-
-    private int countVnCharater(String strInput) {
-        Set<String> stringSet = new HashSet<>();
-
-        int count = 0;
-
-        // Duyệt qua mảng các chuỗi
-        for (String str : myArray) {
-            // Nếu chuỗi con đã xuất hiện, không cần kiểm tra lại tiếp tục vòng for
-            if (stringSet.contains(str)) {
-                continue;
-            }
-
-            // Tìm vị trí xuất hiện đầu tiên của chuỗi con trong chuỗi đầu vào
-            int index = strInput.indexOf(str);
-
-            if (index != -1) {
-                // Tăng biến đếm và thêm chuỗi con vào Set nếu tìm thấy
-                count++;
-                stringSet.add(str);
-            }
-        }
-        return count;
     }
 
     private void initView() {
